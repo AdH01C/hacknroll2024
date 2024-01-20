@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import GameScreen from "./components/GameScreen";
+import NavBar from "./components/NavBar";
 
 export default function Home() {
   const [hasStarted, setHasStarted] = useState(false)
@@ -17,6 +18,7 @@ export default function Home() {
     setHasStarted(true)
   }
 
+
   useEffect(() => {
     const timer = setInterval(() => {
         setSecondsLeft(secondsLeft - 1)
@@ -31,9 +33,15 @@ export default function Home() {
 
   }, [secondsLeft])
 
+  if (showGame) {
+    return <GameScreen />
+  }
+
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-white text-black justify-between p-24">
+    <main className="flex flex-col h-screen bg-white text-black">
+      <NavBar />
+      <div className="flex h-full flex-col items-center justify-center p-24">
       {!hasStarted ? (
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-6xl font-bold text-center">
@@ -50,18 +58,14 @@ export default function Home() {
         </div>
 
       ) : (
-        !showGame ? (
           <div className="flex flex-col items-center justify-center">
             <h2 className="text-2xl font-bold text-center">
               {secondsLeft}
             </h2>
             
           </div>
-        ) : (
-          <GameScreen />
-        )
-
-      )}
+        )} 
+      </div>
 
     </main>
   );
