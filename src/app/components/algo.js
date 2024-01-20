@@ -93,7 +93,7 @@ function generateAlphabets(n) {
     return result;
 }
 
-function _generateScales(n) {
+function generateScales(n) {
     let allVars = generateAlphabets(n)
     let connected = [LARGEST]
     let scales = []
@@ -107,9 +107,9 @@ function _generateScales(n) {
     // scales.push(case1(left, right))
 
     while (connected.length < n) {
-        let left = getRandom(connected, randint(1,connected.length))
+        let left = getRandom(connected, randint(1, Math.min(2,connected.length)))
         let disconnected = setDifference(allVars, connected);
-        let right = getRandom(disconnected, randint(1, disconnected.length))
+        let right = getRandom(disconnected, randint(1, Math.min(2,disconnected.length)))
         let k = randint(1,2)
         if (k == 1) {
             scales.push(case1(left, right))
@@ -126,15 +126,7 @@ function _generateScales(n) {
     }
     return scales
 }
-function generateScales(n) {
-    while(1) {
-        try {
-            return _generateScales(n)
-        } catch (error) {
 
-        }
-    }
-}
 console.log(generateScales(5))
 
 module.exports = {
