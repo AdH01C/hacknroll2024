@@ -1,7 +1,7 @@
 "use client"
 
-import { Howl, Howler } from 'howler';
-import { useEffect, useState } from 'react';
+import { Howl } from 'howler';
+import { useEffect } from 'react';
 import { SoundFilled, PauseOutlined } from "@ant-design/icons";
 
 const sound = new Howl({

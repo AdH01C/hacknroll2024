@@ -184,7 +184,7 @@ function generateScales(n) {
     }
 }
 
-console.log(generateScales(5))
+// console.log(generateScales(5))
 
 module.exports = {
     generateScales,
