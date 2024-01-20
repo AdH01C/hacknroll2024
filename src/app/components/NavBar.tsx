@@ -29,6 +29,9 @@ export default function NavBar() {
 
     useEffect(() => {
         sound.play();
+        return () => {
+            sound.stop()
+        }
     }, [])
 
     return (
