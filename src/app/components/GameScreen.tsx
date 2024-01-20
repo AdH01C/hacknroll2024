@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Scale from "./Scale";
 import NavBar from "./NavBar";
 
-import { generateScale } from "../components/algo.js";
+import { generateScales } from "../components/algo.js";
 
 interface Item {
     weight: number;
@@ -17,8 +17,17 @@ interface ItemGroup  {
     weight: number;
 }
 
+interface ScaleOutput {
+    left: string[];
+    right: string[];
+    op: string;
+}
+
 
 export default function GameScreen() {
+
+    const [scaleOutput, setScaleOutput] = useState<ScaleOutput[]>([])
+
     const [items, setItems] = useState<Item[]>(
         [
             { weight: 1, name: "A" }, 
@@ -114,7 +123,7 @@ export default function GameScreen() {
 
     useEffect(() => {
         toggle()
-        console.log(generateScale(3))
+        setScaleOutput(generateScales(4))
 
     }, [])
 
@@ -176,12 +185,18 @@ export default function GameScreen() {
                 {displayTime()}
             </h1>
             <div className="grid grid-rows-2 grid-flow-col absolute right-1/4 top-[90px]">
-                {itemGroups.map((itemGroup, index) => (
+                {/* {itemGroups.map((itemGroup, index) => (
                     index % 2 === 0 && itemGroups[index + 1] ?
                         <div key={index}>
                             <Scale itemA={itemGroup} itemB={itemGroups[index + 1]} />
                         </div>
                     : null
+                ))} */}
+
+                {scaleOutput.map((scale, index) => (
+                    <div key={index}>
+                        <Scale left={scale.left} right={scale.right} op={scale.op} />
+                    </div>
                 ))}
             </div>
 
