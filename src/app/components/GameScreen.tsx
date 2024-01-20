@@ -23,45 +23,31 @@ interface ScaleOutput {
     op: string;
 }
 
+function generateAlphabetArray(n: number): string[] {
+    if (n < 1 || n > 26) {
+        throw new Error("Invalid input: n should be between 1 and 26.");
+    }
+
+    const alphabetArray: string[] = [];
+    for (let i = 0; i < n; i++) {
+        // ASCII value for 'a' is 97
+        const char = String.fromCharCode(97 + i);
+        alphabetArray.push(char);
+    }
+    return alphabetArray;
+}
 
 export default function GameScreen() {
 
     const [scaleOutput, setScaleOutput] = useState<ScaleOutput[]>([])
 
-    // const [items, setItems] = useState<Item[]>(
-    //     [
-    //         { weight: 1, name: "A" }, 
-    //         { weight: 2, name: "B" }, 
-    //         { weight: 3, name: "C" }, 
-    //         { weight: 4, name: "D" }, 
-    //         { weight: 5, name: "E" }, 
-    //         { weight: 6, name: "F" }, 
-    //         { weight: 7, name: "G" }, 
-    //         { weight: 8, name: "H" }, 
-    //         { weight: 9, name: "I" }, 
-    //         { weight: 10, name: "J" }])
-
-    const items = ['a', 'b', 'c', 'd']
-
-    // const [maxWeight, setMaxWeight] = useState<number>(items.map((item) => item.weight).reduce((a, b) => Math.max(a, b)))
-
-    // const [itemGroups, setItemGroups] = useState<ItemGroup[]>([
-    //     { items: items.slice(0, 3), weight: items.slice(0, 3).map((item) => item.weight).reduce((a, b) => a + b) },
-    //     { items: items.slice(1, 4), weight: items.slice(1, 4).map((item) => item.weight).reduce((a, b) => a + b) },
-
-    //     { items: items.slice(2, 5), weight: items.slice(2, 5).map((item) => item.weight).reduce((a, b) => a + b) },
-    //     { items: items.slice(2, 5), weight: items.slice(2, 5).map((item) => item.weight).reduce((a, b) => a + b) },
-
-    //     { items: items.slice(5, 10), weight: items.slice(5, 10).map((item) => item.weight).reduce((a, b) => a + b) },
-    //     { items: items.slice(0, 7), weight: items.slice(0, 7).map((item) => item.weight).reduce((a, b) => a + b) },
-
-    // ])
-
     const [hasFinished, setHasFinished] = useState<boolean>(false)
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
     const [noOfCorrect, setNoOfCorrect] = useState<number>(0)
+    const items = generateAlphabetArray(noOfCorrect+2)
 
-    const [time, setTime] = useState(60 * 1000);
+
+    const [time, setTime] = useState(6000000 * 1000);
     const [isActive, setIsActive] = useState(false);
     
 
@@ -113,13 +99,13 @@ export default function GameScreen() {
     }
 
     const handleRestart = () => {
-        setScaleOutput(generateScales(4))
+        setScaleOutput(generateScales(noOfCorrect+2))
         setIsCorrect(null)
     }
 
     useEffect(() => {
         toggle()
-        setScaleOutput(generateScales(4))
+        setScaleOutput(generateScales(noOfCorrect+2))
 
     }, [])
 
@@ -180,14 +166,12 @@ export default function GameScreen() {
             <h1 className="text-2xl font-bold absolute top-[90px] left-[20px] self-start">
                 {displayTime()}
             </h1>
-            <div className="grid grid-rows-2 grid-flow-col absolute right-1/4 top-[90px]">
-                {/* {itemGroups.map((itemGroup, index) => (
-                    index % 2 === 0 && itemGroups[index + 1] ?
-                        <div key={index}>
-                            <Scale itemA={itemGroup} itemB={itemGroups[index + 1]} />
-                        </div>
-                    : null
-                ))} */}
+            <div className={`
+                grid grid-rows-2 grid-flow-col absolute ml-8 gap-16 top-[90px] 
+                ${noOfCorrect < 6 ? "right-[610px]" : ""}
+                ${noOfCorrect < 8 ? "right-[400px]" : ""} 
+                ${noOfCorrect < 10 ? "right-[200px]" : ""}
+                `}>
 
                 {scaleOutput.map((scale, index) => (
                     <div key={index}>

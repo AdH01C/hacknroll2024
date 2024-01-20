@@ -41,7 +41,7 @@ export default function Scale({ left, right, op }: ScaleProps) {
     }, [left, right])
 
     return (
-        <div className="flex flex-col h-64 w-[355px] justify-between">
+        <div className="flex flex-col h-64 w-[300px] justify-between">
             <div className="flex justify-between">
                 <div className={`h-fit grid grid-rows-2 grid-flow-col ${isHeavier ? "mt-16" : ""} ${isEqual ? "hidden" : ""}`}>
                     {left && left.map((item) => (
