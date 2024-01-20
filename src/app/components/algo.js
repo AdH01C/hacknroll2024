@@ -90,7 +90,7 @@ function generateAlphabets(n) {
     return result;
 }
 
-function generateScales(n) {
+function _generateScales(n) {
     let allVars = generateAlphabets(n)
     let connected = [LARGEST]
     let scales = []
@@ -125,6 +125,16 @@ function generateScales(n) {
         }
     }
     return scales
+}
+
+function generateScales(n) {
+    while (1) {
+        try {
+            return _generateScales(n);
+        } catch (error) {
+
+        }
+    }
 }
 
 console.log(generateScales(5))
