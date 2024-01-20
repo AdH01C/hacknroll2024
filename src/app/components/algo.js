@@ -77,9 +77,6 @@ function case3(scale, allVars) {
     return new Scale(newLeft, newRight, scale.op);
 }
 
-// TESTING CODE
-ALLVARS = ['a', 'b', 'c', 'd', 'e']
-
 function generateAlphabets(n) {
     if (n <= 0 || typeof n !== 'number') {
         return "Please provide a positive number for 'n'.";

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Scale from "./Scale";
 import NavBar from "./NavBar";
 
+import { generateScale } from "../components/algo.js";
+
 interface Item {
     weight: number;
     name: string;
@@ -112,6 +114,8 @@ export default function GameScreen() {
 
     useEffect(() => {
         toggle()
+        console.log(generateScale(3))
+
     }, [])
 
     const waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
