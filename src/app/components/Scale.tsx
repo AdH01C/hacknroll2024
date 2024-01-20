@@ -39,7 +39,7 @@ export default function Scale({ itemA, itemB }: ScaleProps) {
             <div className="flex justify-between">
                 <div className={`h-fit grid grid-rows-2 grid-flow-col ${isHeavier ? "mt-16" : ""} ${isEqual ? "hidden" : ""}`}>
                     {itemA.items.map((item) => (
-                        <h2 className="text-2xl font-bold text-center">
+                        <h2 className="text-2xl font-bold text-center" key={item.name + item.weight}>
                             {item.name}
                         </h2>
                     ))}
@@ -47,7 +47,7 @@ export default function Scale({ itemA, itemB }: ScaleProps) {
 
                 <div className={`h-fit grid grid-rows-2 grid-flow-col ${isHeavier ? "" : "mt-16"} ${isEqual ? "hidden" : ""}`}>
                     {itemB.items.map((item) => (
-                        <h2 className="text-2xl font-bold text-center">
+                        <h2 className="text-2xl font-bold text-center"  key={item.name + item.weight}>
                             {item.name}
                         </h2>
                     ))}
@@ -55,7 +55,7 @@ export default function Scale({ itemA, itemB }: ScaleProps) {
 
                 <div className={`h-fit grid grid-rows-2 grid-flow-col mt-8 ${isEqual ? "" : "hidden"}`}>
                     {itemA.items.map((item) => (
-                        <h2 className="text-2xl font-bold text-center">
+                        <h2 className="text-2xl font-bold text-center"  key={item.name + item.weight}>
                             {item.name}
                         </h2>
                     ))}
@@ -63,7 +63,7 @@ export default function Scale({ itemA, itemB }: ScaleProps) {
 
                 <div className={`h-fit grid grid-rows-2 grid-flow-col mt-8 ${isEqual ? "" : "hidden"}`}>
                     {itemB.items.map((item) => (
-                        <h2 className="text-2xl font-bold text-center">
+                        <h2 className="text-2xl font-bold text-center"  key={item.name + item.weight}>
                             {item.name}
                         </h2>
                     ))}
