@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Scale from "./Scale";
 import NavBar from "./NavBar";
-
+import Image from "next/image";
 import { generateScales } from "../components/algo.js";
 
 interface Item {
@@ -190,7 +190,8 @@ export default function GameScreen() {
                                 className="bg-blue-500 hover:bg-blue-700 hover:cursor-pointer text-white font-bold py-2 px-4 rounded"
                                 onClick={() => handleAnswer(item)}
                             >
-                                {item}
+                                <Image src={`/${item}.png`} alt="Scale" width={16} height={16}/>
+                                {/* <img src={`/${item}.png`} alt="Scale" /> */}
                             </button>
                         </div>
                      ))}

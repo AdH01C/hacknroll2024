@@ -46,7 +46,8 @@ export default function Scale({ left, right, op }: ScaleProps) {
                 <div className={`h-fit grid grid-rows-2 grid-flow-col ${isHeavier ? "mt-16" : ""} ${isEqual ? "hidden" : ""}`}>
                     {left && left.map((item) => (
                         <h2 className="text-2xl font-bold text-center" key={item}>
-                            {item}
+                            <Image src={`/${item}.png`} alt="Scale" width={64} height={64} />
+                            {/* <img src={`/${item}.png`} alt="Scale" width={64} height={64} /> */}
                         </h2>
                     ))}
                 </div>
@@ -54,7 +55,8 @@ export default function Scale({ left, right, op }: ScaleProps) {
                 <div className={`h-fit grid grid-rows-2 grid-flow-col ${isHeavier ? "" : "mt-16"} ${isEqual ? "hidden" : ""}`}>
                     {right && right.map((item) => (
                         <h2 className="text-2xl font-bold text-center"  key={item}>
-                            {item}
+                            <Image src={`/${item}.png`} alt="Scale" width={64} height={64} />
+                            {/* <img src={`/${item}.png`} alt="Scale" width={64} height={64} /> */}
                         </h2>
                     ))}
                 </div>
@@ -62,7 +64,8 @@ export default function Scale({ left, right, op }: ScaleProps) {
                 <div className={`h-fit grid grid-rows-2 grid-flow-col mt-8 ${isEqual ? "" : "hidden"}`}>
                     {left && left.map((item) => (
                         <h2 className="text-2xl font-bold text-center"  key={item}>
-                            {item}
+                            <Image src={`/${item}.png`} alt="Scale" width={64} height={64} />
+                            {/* <img src={`/${item}.png`} alt="Scale" width={64} height={64} /> */}
                         </h2>
                     ))}
                 </div>
@@ -70,7 +73,8 @@ export default function Scale({ left, right, op }: ScaleProps) {
                 <div className={`h-fit grid grid-rows-2 grid-flow-col mt-8 ${isEqual ? "" : "hidden"}`}>
                     {right && right.map((item) => (
                         <h2 className="text-2xl font-bold text-center"  key={item}>
-                            {item}
+                            <Image src={`/${item}.png`} alt="Scale" width={64} height={64} />
+                            {/* <img src={`/${item}.png`} alt="Scale" width={64} height={64} /> */}
                         </h2>
                     ))}
                 </div>
