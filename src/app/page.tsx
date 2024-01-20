@@ -59,12 +59,13 @@ export default function Home() {
 
       ) : (
           <div className="flex flex-col items-center justify-center">
-            <h2 className="text-2xl font-bold text-center">
+            <h2 className="text-6xl font-bold text-center">
               {secondsLeft}
             </h2>
             
           </div>
-        )} 
+        )
+      } 
       </div>
 
     </main>

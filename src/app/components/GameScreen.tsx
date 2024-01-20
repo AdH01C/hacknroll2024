@@ -17,15 +17,30 @@ interface ItemGroup  {
 
 
 export default function GameScreen() {
-    const [items, setItems] = useState<Item[]>([{ weight: 1, name: "Item A" }, { weight: 2, name: "Item B" }, { weight: 3, name: "Item C" }, { weight: 4, name: "Item D" }, { weight: 5, name: "Item E" }, { weight: 6, name: "Item F" }, { weight: 7, name: "Item G" }, { weight: 8, name: "Item H" }, { weight: 9, name: "Item I" }, { weight: 10, name: "Item J" }])
+    const [items, setItems] = useState<Item[]>(
+        [
+            { weight: 1, name: "A" }, 
+            { weight: 2, name: "B" }, 
+            { weight: 3, name: "C" }, 
+            { weight: 4, name: "D" }, 
+            { weight: 5, name: "E" }, 
+            { weight: 6, name: "F" }, 
+            { weight: 7, name: "G" }, 
+            { weight: 8, name: "H" }, 
+            { weight: 9, name: "I" }, 
+            { weight: 10, name: "J" }])
     const [maxWeight, setMaxWeight] = useState<number>(items.map((item) => item.weight).reduce((a, b) => Math.max(a, b)))
 
     const [itemGroups, setItemGroups] = useState<ItemGroup[]>([
-        { items: [items[0], items[1], items[2]], weight: items[0].weight + items[1].weight + items[2].weight },
-        { items: [items[3], items[4], items[5]], weight: items[3].weight + items[4].weight + items[5].weight },
-        { items: [items[6], items[7], items[8]], weight: items[6].weight + items[7].weight + items[8].weight },
-        { items: [items[9]], weight: items[9].weight },
-        
+        { items: items.slice(0, 3), weight: items.slice(0, 3).map((item) => item.weight).reduce((a, b) => a + b) },
+        { items: items.slice(1, 4), weight: items.slice(1, 4).map((item) => item.weight).reduce((a, b) => a + b) },
+
+        { items: items.slice(2, 5), weight: items.slice(2, 5).map((item) => item.weight).reduce((a, b) => a + b) },
+        { items: items.slice(2, 5), weight: items.slice(2, 5).map((item) => item.weight).reduce((a, b) => a + b) },
+
+        { items: items.slice(5, 10), weight: items.slice(5, 10).map((item) => item.weight).reduce((a, b) => a + b) },
+        { items: items.slice(0, 7), weight: items.slice(0, 7).map((item) => item.weight).reduce((a, b) => a + b) },
+
     ])
 
 
@@ -120,10 +135,10 @@ export default function GameScreen() {
     return (
         <main className="flex flex-col h-screen w-screen bg-white justify-between text-black gap-4">
             <NavBar />
-            <h1 className="text-6xl font-bold text-center">
+            <h1 className="text-2xl font-bold absolute top-[90px] left-[20px] self-start">
                 {displayTime()}
             </h1>
-            <div className="flex items-center justify-center">
+            <div className="grid grid-rows-2 grid-flow-col absolute right-1/4 top-[90px]">
                 {itemGroups.map((itemGroup, index) => (
                     index % 2 === 0 && itemGroups[index + 1] ?
                         <div key={index}>
@@ -136,7 +151,7 @@ export default function GameScreen() {
 
             <div className="flex flex-col items-center justify-center mt-32">
                 <h1 className="text-6xl font-bold text-center">
-                    Which item is heavier?
+                    Which item is the heaviest?
                 </h1>
 
                 <div className="grid grid-rows-2 grid-flow-col gap-4 mt-8 mb-8">
