@@ -122,7 +122,7 @@ function _generateScales(n) {
     const maxObj = 4
     // apply case 3 to a random subset of scales
     for (let i = 0; i < scales.length; i++) {
-        if (Math.random() < 0.2 && scales[i].left.length < maxObj && scales[i].right.length < maxObj) {
+        if (Math.random() < 0.1 && scales[i].left.length < maxObj && scales[i].right.length < maxObj) {
             scales[i] = case3(scales[i], allVars)
         }
     }
