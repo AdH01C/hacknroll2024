@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar";
 
 export default function Home() {
   const [hasStarted, setHasStarted] = useState(false)
-  const [secondsLeft, setSecondsLeft] = useState(3)
+  const [secondsLeft, setSecondsLeft] = useState(99999999)
   const [showGame, setShowGame] = useState(false)
 
   const handleRestart = () => {
@@ -16,12 +16,13 @@ export default function Home() {
 
   const handleStart = () => {
     setHasStarted(true)
+    setSecondsLeft(3)
   }
-
 
   useEffect(() => {
     const timer = setInterval(() => {
-        setSecondsLeft(secondsLeft - 1)
+      setSecondsLeft(secondsLeft - 1)
+        
     }, 1000)
     
     if (secondsLeft <= 0) {
@@ -32,6 +33,9 @@ export default function Home() {
     return () => clearInterval(timer)
 
   }, [secondsLeft])
+
+
+  
 
   if (showGame) {
     return <GameScreen />

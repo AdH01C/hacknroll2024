@@ -29,6 +29,8 @@ export default function GameScreen() {
             { weight: 8, name: "H" }, 
             { weight: 9, name: "I" }, 
             { weight: 10, name: "J" }])
+
+
     const [maxWeight, setMaxWeight] = useState<number>(items.map((item) => item.weight).reduce((a, b) => Math.max(a, b)))
 
     const [itemGroups, setItemGroups] = useState<ItemGroup[]>([
@@ -43,10 +45,11 @@ export default function GameScreen() {
 
     ])
 
-
+    const [hasFinished, setHasFinished] = useState<boolean>(false)
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
+    const [noOfCorrect, setNoOfCorrect] = useState<number>(0)
 
-    const [time, setTime] = useState(60000);
+    const [time, setTime] = useState(5 * 1000);
     const [isActive, setIsActive] = useState(false);
     
 
@@ -59,7 +62,13 @@ export default function GameScreen() {
                 setTime(time => time - 10);
             }, 10);
         } else if (!isActive && time !== 0) {
+            // Clear the interval if the timer is paused
             clearInterval(interval);
+        }
+
+        if (time <= 0) {
+            setHasFinished(true)
+            clearInterval(interval)
         }
 
         return () => clearInterval(interval);
@@ -84,6 +93,9 @@ export default function GameScreen() {
     
     const handleAnswer = async (answer : Item) => {
         setIsCorrect(answer.weight == maxWeight)
+        if (answer.weight == maxWeight) {
+            setNoOfCorrect(noOfCorrect + 1)
+        }
         await waitFor(500);
         handleRestart()
     }
@@ -132,6 +144,27 @@ export default function GameScreen() {
         )
     }
 
+    if (hasFinished) {
+        return (
+            <main className="flex flex-col h-screen w-screen bg-white items-center text-black gap-4">
+                <NavBar />
+                <div className="flex flex-col h-full items-center justify-center">
+                    <h1 className="text-6xl font-bold text-center">
+                        Game Over!
+                    </h1>
+
+                    <h2 className="text-4xl font-bold text-center">
+                        You got {noOfCorrect} correct!
+                    </h2>
+
+
+                </div>
+
+            </main>
+        )
+    }
+
+
     return (
         <main className="flex flex-col h-screen w-screen bg-white justify-between text-black gap-4">
             <NavBar />
@@ -150,9 +183,6 @@ export default function GameScreen() {
 
 
             <div className="flex flex-col items-center justify-center mt-32">
-                <h1 className="text-6xl font-bold text-center">
-                    Which item is the heaviest?
-                </h1>
 
                 <div className="grid grid-rows-2 grid-flow-col gap-4 mt-8 mb-8">
                    {items.map((item, index) => (
