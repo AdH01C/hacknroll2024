@@ -12,21 +12,17 @@ const sound = new Howl({
 });
 
 export default function NavBar() {
-    const [isPlaying, setIsPlaying] = useState(true)
+    const isPlaying = sound.playing()
     const handlePlay = () => {
         if (isPlaying) {
             sound.pause();
-            setIsPlaying(false)
         } else {
             sound.play();
-            setIsPlaying(true)
         }
     }
     useEffect(() => {
-        sound.play();
-        return () => {
-            sound.stop()
-        }
+        if (!isPlaying)
+            sound.play();
     }, [])
     return (
         <div className="flex flex-row justify-end sticky w-full bg-blue-500 text-white p-4">
