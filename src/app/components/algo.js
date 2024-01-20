@@ -108,6 +108,9 @@ function generateScales(n) {
         let disconnected = setDifference(allVars, connected);
         let right = getRandom(disconnected, randint(1, Math.min(2,disconnected.length)))
         let k = randint(1,2)
+        if (connected.length == 1) {
+            k = 1
+        }
         if (k == 1) {
             scales.push(case1(left, right))
         } else if (k == 2) {
