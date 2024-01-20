@@ -28,39 +28,40 @@ export default function GameScreen() {
 
     const [scaleOutput, setScaleOutput] = useState<ScaleOutput[]>([])
 
-    const [items, setItems] = useState<Item[]>(
-        [
-            { weight: 1, name: "A" }, 
-            { weight: 2, name: "B" }, 
-            { weight: 3, name: "C" }, 
-            { weight: 4, name: "D" }, 
-            { weight: 5, name: "E" }, 
-            { weight: 6, name: "F" }, 
-            { weight: 7, name: "G" }, 
-            { weight: 8, name: "H" }, 
-            { weight: 9, name: "I" }, 
-            { weight: 10, name: "J" }])
+    // const [items, setItems] = useState<Item[]>(
+    //     [
+    //         { weight: 1, name: "A" }, 
+    //         { weight: 2, name: "B" }, 
+    //         { weight: 3, name: "C" }, 
+    //         { weight: 4, name: "D" }, 
+    //         { weight: 5, name: "E" }, 
+    //         { weight: 6, name: "F" }, 
+    //         { weight: 7, name: "G" }, 
+    //         { weight: 8, name: "H" }, 
+    //         { weight: 9, name: "I" }, 
+    //         { weight: 10, name: "J" }])
 
+    const items = ['a', 'b', 'c', 'd']
 
-    const [maxWeight, setMaxWeight] = useState<number>(items.map((item) => item.weight).reduce((a, b) => Math.max(a, b)))
+    // const [maxWeight, setMaxWeight] = useState<number>(items.map((item) => item.weight).reduce((a, b) => Math.max(a, b)))
 
-    const [itemGroups, setItemGroups] = useState<ItemGroup[]>([
-        { items: items.slice(0, 3), weight: items.slice(0, 3).map((item) => item.weight).reduce((a, b) => a + b) },
-        { items: items.slice(1, 4), weight: items.slice(1, 4).map((item) => item.weight).reduce((a, b) => a + b) },
+    // const [itemGroups, setItemGroups] = useState<ItemGroup[]>([
+    //     { items: items.slice(0, 3), weight: items.slice(0, 3).map((item) => item.weight).reduce((a, b) => a + b) },
+    //     { items: items.slice(1, 4), weight: items.slice(1, 4).map((item) => item.weight).reduce((a, b) => a + b) },
 
-        { items: items.slice(2, 5), weight: items.slice(2, 5).map((item) => item.weight).reduce((a, b) => a + b) },
-        { items: items.slice(2, 5), weight: items.slice(2, 5).map((item) => item.weight).reduce((a, b) => a + b) },
+    //     { items: items.slice(2, 5), weight: items.slice(2, 5).map((item) => item.weight).reduce((a, b) => a + b) },
+    //     { items: items.slice(2, 5), weight: items.slice(2, 5).map((item) => item.weight).reduce((a, b) => a + b) },
 
-        { items: items.slice(5, 10), weight: items.slice(5, 10).map((item) => item.weight).reduce((a, b) => a + b) },
-        { items: items.slice(0, 7), weight: items.slice(0, 7).map((item) => item.weight).reduce((a, b) => a + b) },
+    //     { items: items.slice(5, 10), weight: items.slice(5, 10).map((item) => item.weight).reduce((a, b) => a + b) },
+    //     { items: items.slice(0, 7), weight: items.slice(0, 7).map((item) => item.weight).reduce((a, b) => a + b) },
 
-    ])
+    // ])
 
     const [hasFinished, setHasFinished] = useState<boolean>(false)
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
     const [noOfCorrect, setNoOfCorrect] = useState<number>(0)
 
-    const [time, setTime] = useState(5 * 1000);
+    const [time, setTime] = useState(60 * 1000);
     const [isActive, setIsActive] = useState(false);
     
 
@@ -102,9 +103,9 @@ export default function GameScreen() {
         return `${seconds}.${milliseconds.toString().padStart(3, '0')}s`;
     };
     
-    const handleAnswer = async (answer : Item) => {
-        setIsCorrect(answer.weight == maxWeight)
-        if (answer.weight == maxWeight) {
+    const handleAnswer = async (answer : string) => {
+        if (answer == "a"){
+            setIsCorrect(true)
             setNoOfCorrect(noOfCorrect + 1)
         }
         await waitFor(500);
@@ -112,12 +113,7 @@ export default function GameScreen() {
     }
 
     const handleRestart = () => {
-        // randomise the weights for each item
-        setItems(items.map((item) => ({ ...item, weight: Math.floor(Math.random() * 10) + 1 })))
-
-        // new max weight
-        setMaxWeight(items.map((item) => item.weight).reduce((a, b) => Math.max(a, b)))
-
+        setScaleOutput(generateScales(4))
         setIsCorrect(null)
     }
 
@@ -210,7 +206,7 @@ export default function GameScreen() {
                                 className="bg-blue-500 hover:bg-blue-700 hover:cursor-pointer text-white font-bold py-2 px-4 rounded"
                                 onClick={() => handleAnswer(item)}
                             >
-                                {item.name}
+                                {item}
                             </button>
                         </div>
                      ))}
