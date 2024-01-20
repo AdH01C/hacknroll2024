@@ -174,8 +174,14 @@ function generateScales(n) {
             scales[i].right[j] = dct[scales[i].right[j]]
         }
     }
-    scales.unshift(dct[LARGEST])
-    return scales
+    const maxi = dct[LARGEST]
+    if (typeof maxi === "string") {
+        scales.unshift(maxi)
+        return scales
+    } else {
+        scales.unshift("ERROR OCCURED")
+        return scales
+    }
 }
 
 console.log(generateScales(5))
