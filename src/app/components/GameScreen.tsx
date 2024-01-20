@@ -44,7 +44,7 @@ export default function GameScreen() {
     const [hasFinished, setHasFinished] = useState<boolean>(false)
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
     const [noOfCorrect, setNoOfCorrect] = useState<number>(0)
-    const items = generateAlphabetArray(noOfCorrect+2)
+    const items = generateAlphabetArray((noOfCorrect)/5 + 2)
 
 
 
@@ -104,7 +104,7 @@ export default function GameScreen() {
     const handleRestart = () => {
         // setScaleOutput(generateScales(noOfCorrect+2) as ScaleOutput[])
         setIsCorrect(null)
-        const scales = generateScales(noOfCorrect+2)
+        const scales = generateScales((noOfCorrect)/5 + 2)
         if (scales && scales.length > 0) {
             setAnswer(scales[0].toString());
         }
@@ -116,12 +116,20 @@ export default function GameScreen() {
             }
             setScaleOutput(scaleOutput)
         }
+    }
+
+    const handleActualRestart = () => {
+        setNoOfCorrect(0)
+        setHasFinished(false)
+        handleRestart()
+        setNoOfCorrect(0)
+        setTime(60 * 1000)
 
     }
 
     useEffect(() => {
         toggle()
-        const scales = generateScales(noOfCorrect+2)
+        const scales = generateScales((noOfCorrect)/5 + 2)
         if (scales && scales.length > 0) {
             setAnswer(scales[0].toString());
         }
@@ -183,6 +191,12 @@ export default function GameScreen() {
                         You got {noOfCorrect} correct!
                     </h2>
 
+                    <button 
+                        className="mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+                        onClick={() => handleActualRestart()}>
+                        Restart
+                    </button>
+
 
                 </div>
 
@@ -199,9 +213,9 @@ export default function GameScreen() {
             </h1>
             <div className={`
                 grid grid-rows-2 grid-flow-col absolute ml-8 gap-16 top-[90px] 
-                ${noOfCorrect < 6 ? "right-[610px]" : ""}
-                ${noOfCorrect < 8 ? "right-[400px]" : ""} 
-                ${noOfCorrect < 10 ? "right-[200px]" : ""}
+                ${((noOfCorrect)/5 + 2) < 4 ? "right-[610px]" : ""}
+                ${((noOfCorrect)/5 + 2) < 8 ? "right-[400px]" : ""} 
+                ${((noOfCorrect)/5 + 2) < 10 ? "right-[200px]" : ""}
                 `}>
 
                 {scaleOutput.map((scale, index) => (
@@ -214,16 +228,18 @@ export default function GameScreen() {
 
             <div className="flex flex-col items-center justify-center mt-32">
 
-                <div className="grid grid-rows-2 grid-flow-col gap-4 mt-8 mb-8">
+                <div className="grid grid-rows-1 grid-flow-col gap-2 mt-16 mb-8">
                    {items.map((item, index) => (
                        <div key={index} className="flex flex-col items-center justify-center">  
                             <button
-                                className="bg-blue-500 hover:bg-blue-700 hover:cursor-pointer text-white font-bold py-2 px-4 rounded"
+                                className="bg-blue-500 hover:bg-blue-700 hover:cursor-pointer text-white font-bold py-4 px-8 rounded"
                                 onClick={() => handleAnswer(item)}
                             >
-                                <Image src={`/${item}.png`} alt="Scale" width={16} height={16}/>
+                                <Image src={`/${item}.png`} alt="Scale" width={32} height={32} />
                                 {/* <img src={`/${item}.png`} alt="Scale" /> */}
                             </button>
+
+
                         </div>
                      ))}
                     
