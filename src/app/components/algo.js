@@ -107,9 +107,9 @@ function generateScales(n) {
     // scales.push(case1(left, right))
 
     while (connected.length < n) {
-        let left = getRandom(connected, randint(1,connected.length))
+        let left = getRandom(connected, randint(1, Math.min(2,connected.length)))
         let disconnected = setDifference(allVars, connected);
-        let right = getRandom(disconnected, randint(1, disconnected.length))
+        let right = getRandom(disconnected, randint(1, Math.min(2,disconnected.length)))
         let k = randint(1,2)
         if (k == 1) {
             scales.push(case1(left, right))
@@ -127,14 +127,7 @@ function generateScales(n) {
     return scales
 }
 
-while(1) {
-    try {
-        console.log(generateScales(4))
-        break
-    } catch (error) {
-
-    }
-}
+console.log(generateScales(5))
 
 module.exports = {
     generateScales,
