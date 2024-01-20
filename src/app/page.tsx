@@ -49,7 +49,7 @@ export default function Home() {
       {!hasStarted ? (
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-6xl font-bold text-center">
-            Welcome to the weighing scale game!
+            Welcome to Balance!
           </h1>
 
           <button

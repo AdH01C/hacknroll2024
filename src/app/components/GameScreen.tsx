@@ -40,14 +40,15 @@ function generateAlphabetArray(n: number): string[] {
 export default function GameScreen() {
 
     const [scaleOutput, setScaleOutput] = useState<ScaleOutput[]>([])
-
+    const [answer, setAnswer] = useState<string>("")
     const [hasFinished, setHasFinished] = useState<boolean>(false)
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
     const [noOfCorrect, setNoOfCorrect] = useState<number>(0)
     const items = generateAlphabetArray(noOfCorrect+2)
 
 
-    const [time, setTime] = useState(6000000 * 1000);
+
+    const [time, setTime] = useState(60 * 1000);
     const [isActive, setIsActive] = useState(false);
     
 
@@ -89,23 +90,53 @@ export default function GameScreen() {
         return `${seconds}.${milliseconds.toString().padStart(3, '0')}s`;
     };
     
-    const handleAnswer = async (answer : string) => {
-        if (answer == "a"){
+    const handleAnswer = async (ansinput : string) => {
+        if (ansinput == answer){
             setIsCorrect(true)
             setNoOfCorrect(noOfCorrect + 1)
+        } else {
+            setIsCorrect(false)
         }
         await waitFor(500);
         handleRestart()
     }
 
     const handleRestart = () => {
-        setScaleOutput(generateScales(noOfCorrect+2))
+        // setScaleOutput(generateScales(noOfCorrect+2) as ScaleOutput[])
         setIsCorrect(null)
+        const scales = generateScales(noOfCorrect+2)
+        if (scales && scales.length > 0) {
+            setAnswer(scales[0].toString());
+        }
+        // first is answer, everything else is Scale[]
+        const scaleOutput : ScaleOutput[] = []
+        if (scales) {
+            for (let i = 1; i < scales.length; i++) {
+                scaleOutput.push(scales[i] as ScaleOutput)
+            }
+            setScaleOutput(scaleOutput)
+        }
+
     }
 
     useEffect(() => {
         toggle()
-        setScaleOutput(generateScales(noOfCorrect+2))
+        const scales = generateScales(noOfCorrect+2)
+        if (scales && scales.length > 0) {
+            setAnswer(scales[0].toString());
+        }
+        // first is answer, everything else is Scale[]
+        const scaleOutput : ScaleOutput[] = []
+        if (scales) {
+            for (let i = 1; i < scales.length; i++) {
+                scaleOutput.push(scales[i] as ScaleOutput)
+            }
+            setScaleOutput(scaleOutput)
+        }
+
+        console.log(answer, scaleOutput)
+        
+        
 
     }, [])
 
@@ -174,7 +205,7 @@ export default function GameScreen() {
                 `}>
 
                 {scaleOutput.map((scale, index) => (
-                    <div key={index}>
+                    <div key={scale.left.join("") + scale.right.join("") + index}>
                         <Scale left={scale.left} right={scale.right} op={scale.op} />
                     </div>
                 ))}
