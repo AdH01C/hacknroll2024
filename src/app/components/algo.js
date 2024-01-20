@@ -129,14 +129,53 @@ function _generateScales(n) {
     return scales
 }
 
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+    while (currentIndex > 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+    return array;
+}
+
+function createDictionary(keys, values) {
+    if (keys.length !== values.length) {
+        throw new Error('Keys and values arrays must have the same length');
+    }
+
+    const dictionary = {};
+
+    for (let i = 0; i < keys.length; i++) {
+        dictionary[keys[i]] = values[i];
+    }
+
+    return dictionary;
+}
+
 function generateScales(n) {
+    let scales = null
     while (1) {
         try {
-            return _generateScales(n)
-        } catch (error) {
+            scales = _generateScales(n)
+            break
+        } catch (error) {}
+    }
+    let keys = generateAlphabets(n)
+    let vals = generateAlphabets(n)
+    shuffle(vals)
+    let dct = createDictionary(keys, vals)
+    for (let i = 0; i < scales.length; i++) {
+        for (let j = 0; j < scales[i].left.length; j++) {
+            scales[i].left[j] = dct[scales[i].left[j]]
+        }
+        for (let j = 0; j < scales[i].right.length; j++) {
+            scales[i].right[j] = dct[scales[i].right[j]]
         }
     }
-    return _generateScales(n)
+    scales.unshift(dct[LARGEST])
+    return scales
 }
 
 console.log(generateScales(5))
