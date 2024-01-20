@@ -132,9 +132,9 @@ function generateScales(n) {
         try {
             return _generateScales(n);
         } catch (error) {
-
         }
     }
+    return _generateScales(n);
 }
 
 console.log(generateScales(5))
