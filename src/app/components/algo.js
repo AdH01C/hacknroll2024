@@ -174,6 +174,7 @@ function generateScales(n) {
             scales[i].right[j] = dct[scales[i].right[j]]
         }
         if (Math.random() < 0.5 && scales[i].op == '>') {
+            [scales[i].left, scales[i].right] = [scales[i].right, scales[i].left]
             scales[i].op = '<'
         }
     }
