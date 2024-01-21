@@ -120,10 +120,9 @@ export default function GameScreen() {
 
     const handleActualRestart = () => {
         setNoOfCorrect(0)
-        setHasFinished(false)
         handleRestart()
-        setNoOfCorrect(0)
         setTime(60 * 1000)
+        setHasFinished(false)
 
     }
 
