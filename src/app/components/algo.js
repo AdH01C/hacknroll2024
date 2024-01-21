@@ -173,7 +173,11 @@ function generateScales(n) {
         for (let j = 0; j < scales[i].right.length; j++) {
             scales[i].right[j] = dct[scales[i].right[j]]
         }
+        if (Math.random() < 0.5 && scales[i].op == '>') {
+            scales[i].op = '<'
+        }
     }
+    shuffle(scales)
     const maxi = dct[LARGEST]
     if (typeof maxi === "string") {
         scales.unshift(maxi)
